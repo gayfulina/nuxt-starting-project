@@ -8,6 +8,7 @@
 
 <script>
 import AdminPostForm from "../../../components/Admin/AdminPostForm";
+import axios from "axios";
 
 export default {
   name: "index",
@@ -15,15 +16,17 @@ export default {
   components: {
     AdminPostForm
   },
-  data() {
-    return {
-      loadedPost: {
-        author: 'Irina',
-        title: 'My awesome Post',
-        content: 'Super amazing, thanks for that!',
-        thumbnailLink: 'https://th.bing.com/th/id/R.ef1acd569d096bb82714d9212d07569d?rik=Il1EzLd5AVzHBg&pid=ImgRaw&r=0'
-      }
-    }
+
+  asyncData(context) {
+    console.log(context.params.postId)
+    //return axios.get('https://nuxt-blog-e294b-default-rtdb.firebaseio.com/posts/' + context.params.postId + '.json')
+    return axios.get(`https://nuxt-blog-e294b-default-rtdb.firebaseio.com/posts/${context.params.postId}.json`)
+      .then(res => {
+        return {
+          loadedPost: res.data
+        }
+      })
+      .catch(e => context.error(e))
   }
 }
 </script>
@@ -33,6 +36,7 @@ export default {
   width: 90%;
   margin: 20px auto;
 }
+
 @media (min-width: 768px) {
   .update-form {
     width: 500px;

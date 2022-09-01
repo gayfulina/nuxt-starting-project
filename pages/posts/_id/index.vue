@@ -16,24 +16,20 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "index",
   layout: 'admin',
-  asyncData(context, callback) {
-    console.log(context)
-    setTimeout(() => {
-      callback(null, {
-        loadedPost: {
-          id: "1",
-          title: `First Post (ID: ${context.params.id}})`,
-          previewText: "This is my first post!",
-          author: 'Irina',
-          updatedDate: new Date,
-          content: 'Some dummy text which is definitely not the preview text though',
-          thumbnail: "https://th.bing.com/th/id/R.ef1acd569d096bb82714d9212d07569d?rik=Il1EzLd5AVzHBg&pid=ImgRaw&r=0"
+  asyncData(context) {
+    console.log(context.params.id)
+    return axios.get('https://nuxt-blog-e294b-default-rtdb.firebaseio.com/posts/' + context.params.id + '.json')
+      .then(res => {
+        return {
+          loadedPost: res.data
         }
       })
-    }, 1000)
+      .catch(e => context.error(e))
   }
 }
 </script>
