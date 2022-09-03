@@ -8,13 +8,9 @@
 </template>
 
 <script>
-import PostList from "../components/Posts/PostList";
 
 export default {
   name: 'IndexPage',
-  components: {
-    PostList
-  },
   computed: {
     loadedPosts() {
       return this.$store.getters.loadedPosts
