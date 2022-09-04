@@ -66,16 +66,12 @@ module.exports = {
     }
   },
   env: {
-    baseUrl: process.env.BASE_URL || 'https://nuxt-blog-e294b-default-rtdb.firebaseio.com'
+    baseUrl: process.env.BASE_URL || 'https://nuxt-blog-e294b-default-rtdb.firebaseio.com',
+    fbAPIKey: 'AIzaSyA_p9RDxA97ktW3jGnsFRmrLer__BzB3dM'
   },
-  // router: {
-  //   extendRoutes (routes, resolve) {
-  //     routes.push({
-  //       path: '*',
-  //       component: resolve(__dirname, 'pages/index.vue')
-  //     })
-  //   }
-  // }
+  router: {
+    middleware: 'log'
+  },
 
   transition: {
     name: 'fade',
